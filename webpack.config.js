@@ -12,11 +12,13 @@ module.exports = {
     },
     output: {
         path: PATHS.build,
-        filename: '[name].js'
+        filename: '[name].js',
+        devtoolModuleFilenameTemplate: 'webpack:///C:/work/triage/app',
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Triage App'
         })
-    ]
+    ],
+    devtool: 'source-map'
 };
