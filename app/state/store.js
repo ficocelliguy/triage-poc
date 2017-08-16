@@ -1,28 +1,41 @@
 import { createStore } from 'redux';
-import actions from '../constants/constants'
-import { ADD_TASK, DELETE_TASK, EDIT_TASK } from './actions'
+import constants from '../constants/constants'
+import {getNextId} from './id';
 
 const taskReducer = (store = [], action) => {
+    console.log(store);
     switch (action.type) {
-        case actions.ADD_TASK:
+        case constants.ADD_TASK:
             return [...store, {
                description: action.description,
                 value: action.value,
                 effort: action.effort,
-                id: action.id
+                id: getNextId(),
+                editing: true
             }];
-        case actions.DELETE_TASK:
+        case constants.DELETE_TASK:
             return store.filter((task) => {
                 return task.id !== action.id;
             });
-        case actions.EDIT_TASK:
+        case constants.EDIT_TASK:
+            return store.map(({ description, value, effort, id, editing }) => {
+                return {
+                    description: description,
+                    value: value,
+                    effort: effort,
+                    id: id,
+                    editing: id === action.id ? action.editing : editing
+                }
+            });
+        case constants.UPDATE_TASK:
             return store.map((task) => {
                 if (task.id === action.id) {
                     return {
                         description: action.description,
                         value: action.value,
                         effort: action.effort,
-                        id: action.id
+                        id: action.id,
+                        editing: task.editing
                     }
                 } else {
                     return task;

@@ -17,8 +17,25 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Triage App'
+            title: 'Triage App',
+            template: 'app/index.html.ejs'
         })
     ],
-    devtool: 'source-map'
+    devtool: 'source-map',
+    module: {
+        loaders: [
+            {
+                test: /\.(js|jsx|html)$/,
+                include: [PATHS.app],
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        'env',
+                        'react'
+                    ]
+                }
+            }
+
+        ]
+    }
 };

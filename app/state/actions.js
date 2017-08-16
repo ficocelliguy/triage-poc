@@ -1,25 +1,32 @@
-import actions from '../constants/constants'
+import constants from '../constants/constants'
 
-export function ADD_TASK (description, value, effort, id) {
+export function ADD_TASK ({description = "New Task", value = 1, effort = 1}) {
     return {
-        type: actions.ADD_TASK,
+        type: constants.ADD_TASK,
         description,
         value,
-        effort,
-        id
+        effort
     }
 }
 
 export function DELETE_TASK (id)  {
     return {
-        type: actions.DELETE_TASK,
+        type: constants.DELETE_TASK,
         id
     }
 }
 
-export function EDIT_TASK (description, value, effort, id) {
+export function EDIT_TASK (id, editing) {
     return {
-        type: actions.EDIT_TASK,
+        type: constants.EDIT_TASK,
+        id,
+        editing
+    }
+}
+
+export function UPDATE_TASK (description, value, effort, id) {
+    return {
+        type: constants.UPDATE_TASK,
         description,
         value,
         effort,
